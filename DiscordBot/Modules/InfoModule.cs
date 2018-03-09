@@ -3,7 +3,7 @@ using Discord.Commands;
 using Discord.WebSocket;
 using System;
 using System.Threading.Tasks;
-using DiscordBot.Settings;
+using DiscordBot.SettingsService;
 
 namespace DiscordBot.Modules
 {
@@ -20,14 +20,14 @@ namespace DiscordBot.Modules
         }
 
 
-        [Command("newXML")]
+        [Command("newJson")]
         public async Task NewXml()
         {
             await ReplyAsync("Creating new settings xml");
             SettingsController.Init();
         }
 
-        [Command("readXml")]
+        [Command("readJson")]
         public async Task ReadXml()
         {
             Settings s = await SettingsController.GetSettingsAsync();

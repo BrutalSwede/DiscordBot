@@ -6,7 +6,7 @@ using Discord.WebSocket;
 using Discord.Commands;
 using Microsoft.Extensions.DependencyInjection;
 using DiscordBot.Modules;
-using DiscordBot.Settings;
+using DiscordBot.SettingsService;
 
 namespace DiscordBot
 {
@@ -26,7 +26,16 @@ namespace DiscordBot
             _client.Log += Log;
             //_client.MessageReceived += MessageRecieved;
 
-            string token = ""; // Get token from config.json
+            string token = "";
+
+            try
+            {
+                token = await SettingsController.GetBotTokenFromJson(); // Get token from config.json
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
 
             _services = new ServiceCollection()
                 .AddSingleton(_client)
